@@ -4,7 +4,8 @@ Project 01 - README
 Members
 -------
 
-- Domer McDomerson (dmcdomer@nd.edu)
+- Philip Baumann (pbaumann@nd.edu)
+- Michael Wang (mwang6@nd.edu)
 
 Responses
 ---------
