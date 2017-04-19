@@ -1,4 +1,4 @@
-/* utilities.c */
+/*utilities.c */
 
 #include "search.h"
 
@@ -16,7 +16,20 @@
  * @return  Whether or not a directory is empty.
  */
 bool        is_directory_empty(const char *path) {
-    return false;
+    struct dirent *file; 
+    DIR *dir = opendir(path);
+    int numFiles = 0;
+    bool found = false; 
+    if (dir == NULL ) return found;
+    while (( file = readdir(dir)) != NULL) {
+        numFiles = numFiles + 1;
+        if (numFiles > 2) {
+            found = true;
+            break;
+        }
+    }
+    closedir(dir);
+    return found;
 }
 
 /**
