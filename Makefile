@@ -8,6 +8,24 @@ TARGETS=	search
 
 all:		$(TARGETS)
 
+execute.o: execute.c
+	$(CC) $(CFLAGS) -c -o $@ $^
+
+filter.o: filter.c
+	$(CC) $(CFLAGS) -c -o $@ $^
+
+main.o: main.c
+	$(CC) $(CFLAGS) -c -o $@ $^
+
+search.o: search.c
+	$(CC) $(CFLAGS) -c -o $@ $^
+
+utilities.o: utilities.c
+	$(CC) $(CFLAGS) -c -o $@ $^
+
+search: main.o execute.o filter.o search.o utilities.o
+	$(LD) $(LDFLAGS) -o $@ $^
+
 test:		search test_search.sh
 	@echo Testing $<...
 	@./test_search.sh
