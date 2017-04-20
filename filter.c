@@ -11,6 +11,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+
+#include <libgen.h>
 /**
  * Test whether or not the given path should be filtered out of the output.
  * @param   path        Path to file or directory.
@@ -19,7 +21,19 @@
  * exclude, false to include).
  */
 bool        filter(const char *path, const Settings *settings) {
-    return false;
+    DIR *d = opendir(path);
+    bool reject = false;
+    struct stat inode;
+    if (lstat(path, &inode) != 0) return reject;
+    else if (access(path, settings.access) != 0) reject = true;
+    else if (inode.st_mode != settings.type) reject = true;
+    else if (inode.st_size == 0 ) reject = true;
+    else if (fnmatch(settings.pattern, basename(path), FNM_PATHNAME) != 0) reject = true;
+    else if (fnmatch(settings.pattern, path, FNM_PATHNAME) != 0 ) reject = true;
+    else if (settings.perm != inode.st_mode & (S_IRWXU | S_IRWXG | S_IRWXO)) reject= true;
+    else if (settings.newer < get_mtime(path)) reject = true;
+    else if (
+    return reject;
 }
 
 /* vim: set sts=4 sw=4 ts=8 expandtab ft=c: */
