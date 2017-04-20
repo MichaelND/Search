@@ -18,6 +18,24 @@
  * @return  Whether or not the execution was successful.
  */
 int	    execute(const char *path, const Settings *settings) {
+	if (settings->print == true)
+		printf(path);
+
+	if (settings->exec_argc != 0) {
+		pid_t pid = fork();
+		if (pid < 0) {
+			return EXIT_FAILURE;
+		}
+		else if (pid == 0) {
+			if (execvp(settings->exec_argv[0], settings->exec_argv) < 0) {
+				_exit(EXIT_FAILURE);
+			}
+		}
+		else { //parent
+			int status;
+			while ((pid = wait(&status)) < 0);
+		}
+	}
     return 0;
 }
 
