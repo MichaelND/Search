@@ -15,25 +15,25 @@
  * @param   settings    Settings structure
  * @return  Whether or not the search was successful.
  */
-int	    search(const char *root, const Settings *settings) {
-	struct dirent * dentry;
-
-	DIR * parent_dir = opendir(root);
-
-	if (parent_dir == NULL) { //check if directory is openable
-		return EXIT_FAILURE;
-	}
-	
-	while ((dentry = readdir(parent_dir)) != NULL) { //read
-		is_directory_empty()
-		if (filter(root, settings) == false) { //file passes all the tests
-			execute(root, settings);
-		}
-		search(, settings); //sprintf
-	}
-
-	closedir(parent_dir); //close
-
+int	    search(const char *root, const Settings *settings) {	
+    struct dirent * dentry;
+    struct stat s;
+    DIR * parent_dir = opendir(root);
+    char path[BUFSIZ];
+    if (parent_dir == NULL) { //check if directory is openable
+    	return EXIT_FAILURE;
+    }
+    while ((dentry = readdir(parent_dir)) != NULL) { //read
+        stat(dentry->d_name, &s); // gets inode info
+        sprintf(path, root, "/", dentry->name);
+        if (filter(path, settings) == false) {
+            execute(path, settings);
+        }
+        if (S_ISDIR(s.st_mode) && (dentry->d_name != ("." || ".."))) {
+            search(path, settings);
+        }
+    }
+    closedir(parent_dir); //close
     return EXIT_SUCCESS;
 }
 
