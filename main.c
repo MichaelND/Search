@@ -44,7 +44,6 @@ int	    main(int argc, char *argv[]) {
         .access = 0,
         .uid = -1,
         .gid = -1,
-        .print = false,
     };
     
     PROGRAM_NAME = argv[0];
