@@ -39,6 +39,7 @@ void	    usage(const char *program_name, int status) {
 
 int	    main(int argc, char *argv[]) {
     /* Defining Variables */
+    /*
     PROGRAM_NAME = argv[0];
     PATH = argv[1];
     int argrind = 1;
@@ -53,6 +54,7 @@ int	    main(int argc, char *argv[]) {
                 break;
         }
     }
+    */
     return EXIT_SUCCESS;
 }
 
