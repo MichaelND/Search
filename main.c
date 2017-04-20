@@ -22,7 +22,6 @@ void	    usage(const char *program_name, int status) {
     fprintf(stderr, "    -writable       File is writable to user\n\n");
     fprintf(stderr, "    -type [f|d]     File is of type f for regular file or d for directory\n\n");
     fprintf(stderr, "    -empty          File or directory is empty\n\n");
-    fprintf(stderr, "    -empty          File or directory is empty\n\n");
     fprintf(stderr, "    -name  pattern  Base of file name matches shell pattern\n");
     fprintf(stderr, "    -path  pattern  Path of file matches shell pattern\n\n");
     fprintf(stderr, "    -perm  mode     File's permission bits are exactly mode (octal)\n");
@@ -52,46 +51,51 @@ int	    main(int argc, char *argv[]) {
     while (argrind < argc && strlen(argv[argrind]) > 1 && argv[argrind][0] == '-') {
         char * arg = argv[argrind++];
 
-        if streq(arg, "-executable")
-        switch(arg[1]) {
-            case 'h':
-                usage(0);
-                break;
-            case 'executable':
-                settings.access |= X_OK;
-                break;
-            case 'readable':
-                settings.access |= R_OK;
-                break;
-            case 'writable':
-                settings.access |= W_OK;
-                break;
-            case 'type':
-                settings.type
-                break;
-            case 'empty':
-                settings.
-                break;
-            case 'name':
-                break;
-            case 'path':
-                break;
-            case 'perm':
-                break;
-            case 'newer':
-                break;
-            case 'uid':
-                break;
-            case 'gid':
-                break;
-            case 'print':
-                break;
-            case 'exec':
-                break;
-            default:
-                usage(1);
-                break;
+        if (arg[1] == 'h')
+            usage(PROGRAM_NAME, 0);
+        else if (streq(arg, "-executable"))
+            settings.access |= X_OK;
+        else if (streq(arg, "-readable"))
+            settings.access |= R_OK;
+        else if (streq(arg, "-writable")) 
+            settings.access |= W_OK;
+        else if (streq(arg, "-type")) {
+            arg = argv[argrind++];
+            if (streq(arg, "f"))
+                settings.type |= S_IFREG;
+            else if (streq(arg, "d"))
+                settings.type |= S_IFDIR;
         }
+        else if (streq(arg, "-empty")) //unsure
+            settings.empty |= 1;
+        else if (streq(arg, "-name")) 
+            settings.name = &argv[argrind++][0];
+        else if (streq(arg, "-path"))
+            settings.path = &argv[argrind++][0];
+        else if (streq(arg, "-perm"))
+            settings.perm = atoi(argv[argrind++]);
+        else if (streq(arg, "-newer"))
+            settings.newer = atoi(argv[argrind++]);
+        else if (streq(arg, "-uid")) 
+            settings.uid = atoi(argv[argrind++]);
+        else if (streq(arg, "-gid"))
+            settings.gid = atoi(argv[argrind++]);
+        else if (streq(arg, "-print"))
+            settings.print = true;
+        else if (streq(arg, "-exec")) {
+            while (arg != NULL) {
+                settings.exec_argc++;
+                arg = argv[argrind++];
+            }
+            char *v[] = {};
+            for (int i = 0; i < settings.exec_argc; i++) {
+                v[i] = argv[(argrind-settings.exec_argc)+i];
+            }
+            settings.exec_argv = v;
+        }
+        else
+            usage(PROGRAM_NAME, 1);
+
     }
     
     return EXIT_SUCCESS;

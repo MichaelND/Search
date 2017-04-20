@@ -27,8 +27,10 @@ int	    execute(const char *path, const Settings *settings) {
 			return EXIT_FAILURE;
 		}
 		else if (pid == 0) {
-			char *v[] = {} //last element equal to null if path matches path in cur
-			if (execvp(settings->exec_argv[0], settings->exec_argv) < 0) {
+			char *v[sizeof(settings->exec_argv)] = {}; //last element equal to null if path matches path in cur
+			strncpy(&settings->exec_argv, v, sizeof(settings->exec_argv) + 1);
+			v[sizeof(settings->exec_argv) + 1] = NULL;
+			if (execvp(v[0], v) < 0) {
 				_exit(EXIT_FAILURE);
 			}
 		}
