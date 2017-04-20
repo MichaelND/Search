@@ -16,6 +16,23 @@
  * @return  Whether or not the search was successful.
  */
 int	    search(const char *root, const Settings *settings) {
+	struct dirent * dentry;
+
+	DIR * parent_dir = opendir(root);
+
+	if (parent_dir == NULL) { //check if directory is openable
+		return EXIT_FAILURE;
+	}
+	if (filter(root, settings) == false) { //file passes all the tests
+		execute(root, settings);
+	}
+
+	while ((dentry = readdir(parent_dir)) != NULL) { //read
+		search(dentry->d_name, settings);
+	}
+
+	closedir(parent_dir); //close
+
     return EXIT_SUCCESS;
 }
 

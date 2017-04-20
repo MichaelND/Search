@@ -39,7 +39,7 @@ void	    usage(const char *program_name, int status) {
 
 int	    main(int argc, char *argv[]) {
     /* Defining Variables */
-    PROGRAM_NAME = argv[0];
+    /* PROGRAM_NAME = argv[0];
     PATH = argv[1];
     int argrind = 1;
     while (argrind < argc && strlen(argv[argrind]) > 1 && argv[argrind][0] == '-') {
@@ -52,7 +52,7 @@ int	    main(int argc, char *argv[]) {
                 usage(1);
                 break;
         }
-    }
+    } */
     return EXIT_SUCCESS;
 }
 
