@@ -23,12 +23,13 @@ int	    search(const char *root, const Settings *settings) {
 	if (parent_dir == NULL) { //check if directory is openable
 		return EXIT_FAILURE;
 	}
-	if (filter(root, settings) == false) { //file passes all the tests
-		execute(root, settings);
-	}
-
+	
 	while ((dentry = readdir(parent_dir)) != NULL) { //read
-		search(dentry->d_name, settings);
+		is_directory_empty()
+		if (filter(root, settings) == false) { //file passes all the tests
+			execute(root, settings);
+		}
+		search(, settings); //sprintf
 	}
 
 	closedir(parent_dir); //close

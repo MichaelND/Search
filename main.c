@@ -39,22 +39,62 @@ void	    usage(const char *program_name, int status) {
 
 int	    main(int argc, char *argv[]) {
     /* Defining Variables */
-    /*
+    //default values for settings
+    Settings settings = {
+        .access = 0,
+        .uid = -1,
+        .gid = -1,
+        .print = false,
+    };
+    
     PROGRAM_NAME = argv[0];
     PATH = argv[1];
     int argrind = 1;
     while (argrind < argc && strlen(argv[argrind]) > 1 && argv[argrind][0] == '-') {
         char * arg = argv[argrind++];
-        switch(arg) {
-            case "-help":
+
+        if streq(arg, "-executable")
+        switch(arg[1]) {
+            case 'h':
                 usage(0);
+                break;
+            case 'executable':
+                settings.access |= X_OK;
+                break;
+            case 'readable':
+                settings.access |= R_OK;
+                break;
+            case 'writable':
+                settings.access |= W_OK;
+                break;
+            case 'type':
+                settings.type
+                break;
+            case 'empty':
+                settings.
+                break;
+            case 'name':
+                break;
+            case 'path':
+                break;
+            case 'perm':
+                break;
+            case 'newer':
+                break;
+            case 'uid':
+                break;
+            case 'gid':
+                break;
+            case 'print':
+                break;
+            case 'exec':
                 break;
             default:
                 usage(1);
                 break;
         }
     }
-    */
+    
     return EXIT_SUCCESS;
 }
 

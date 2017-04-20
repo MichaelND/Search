@@ -27,6 +27,7 @@ int	    execute(const char *path, const Settings *settings) {
 			return EXIT_FAILURE;
 		}
 		else if (pid == 0) {
+			char *v[] = {} //last element equal to null if path matches path in cur
 			if (execvp(settings->exec_argv[0], settings->exec_argv) < 0) {
 				_exit(EXIT_FAILURE);
 			}
