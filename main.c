@@ -8,7 +8,10 @@
 
 #include <sys/stat.h>
 #include <unistd.h>
+/* Globals */
 
+char * PROGRAM_NAME = NULL;
+char * PATH = NULL;
 /* Functions */
 
 void	    usage(const char *program_name, int status) {
@@ -35,6 +38,21 @@ void	    usage(const char *program_name, int status) {
 /* Main Execution */
 
 int	    main(int argc, char *argv[]) {
+    /* Defining Variables */
+    PROGRAM_NAME = argv[0];
+    PATH = argv[1];
+    int argrind = 1;
+    while (argrind < argc && strlen(argv[argrind]) > 1 && argv[argrind][0] == '-') {
+        char * arg = argv[argrind++];
+        switch(arg) {
+            case "-help":
+                usage(0);
+                break;
+            default:
+                usage(1);
+                break;
+        }
+    }
     return EXIT_SUCCESS;
 }
 
