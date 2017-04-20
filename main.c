@@ -39,12 +39,8 @@ void	    usage(const char *program_name, int status) {
 
 int	    main(int argc, char *argv[]) {
     /* Defining Variables */
-<<<<<<< HEAD
     /*
     PROGRAM_NAME = argv[0];
-=======
-    /* PROGRAM_NAME = argv[0];
->>>>>>> 03d7317934f6a96290249d41564632bbf2f8b65c
     PATH = argv[1];
     int argrind = 1;
     while (argrind < argc && strlen(argv[argrind]) > 1 && argv[argrind][0] == '-') {
@@ -57,12 +53,8 @@ int	    main(int argc, char *argv[]) {
                 usage(1);
                 break;
         }
-<<<<<<< HEAD
     }
     */
-=======
-    } */
->>>>>>> 03d7317934f6a96290249d41564632bbf2f8b65c
     return EXIT_SUCCESS;
 }
 
