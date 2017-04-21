@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <sys/stat.h>
+//#include <sys/stat.h>
 
 #include <dirent.h>
 
@@ -29,16 +29,13 @@ int	    search(const char *root, const Settings *settings) {
         // if (lstat(path, &inode) != 0) {
             // if (S_ISDIR(inode.st_mode)) {
 
+        //if (dentry->d_type == DT_DIR) {
         if (strcmp(dentry->d_name, ".") != 0 && strcmp(dentry->d_name, "..") != 0) {
-            if (dentry->d_type == DT_DIR) { //() ) {
-                search(path,settings);
-            if (filter(path,settings) == false) {
+            if (filter(path,settings) == false)
                 execute(path,settings);
-            }
+            if (dentry->d_type == DT_DIR) 
+                search(path,settings);
         }
-        // if is directory
-        //      if d_name != . .. 
-        // else filter, execute
         /*
         if ((strcmp(dentry->d_name,".") != 0) && (strcmp(dentry->d_name,"..") != 0) && (filter(path,settings) == false))  {
             execute(path, settings);
