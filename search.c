@@ -24,7 +24,6 @@ int	    search(const char *root, const Settings *settings) {
     }
     while ((dentry = readdir(parent_dir)) != NULL) { //read
         sprintf(path, root, "/", dentry->d_name);
-        // printf("%s\n",path);
         if (filter(path, settings) == false) {
             execute(path, settings);
         }
