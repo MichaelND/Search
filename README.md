@@ -27,6 +27,23 @@ filesystem object paths that will be printed are the objects with criteria
 that meet the settings specified by the user and when print is specified 
 according to the directions. 
 
+Script Questions
+----------------
+
+1.
+
+2.
+
+
 
 Contributions
 -------------
+Philip Baumann
+	created utilities
+	jointly created search, filter, main, and exec
+	wrote README
+
+Michael Wang
+	created Makefile
+	jointly created search, filter, main, and exec
+	finished syscalls.py
