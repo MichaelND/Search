@@ -95,7 +95,7 @@ int	    main(int argc, char *argv[]) {
     }
 
     if (PATH != NULL) {
-       if (filter(PATH,&settings) == false) 
+        if (filter(PATH,&settings) == false) 
             execute(PATH, &settings);
 
         search(PATH, &settings);
