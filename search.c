@@ -26,8 +26,8 @@ int	    search(const char *root, const Settings *settings) {
     }
     while ((dentry = readdir(parent_dir)) != NULL) { //read
         sprintf(path, "%s/%s", root, dentry->d_name);
-        if (lstat(path, &inode) != 0) {
-            if (S_ISREG(inode.st_mode)) {
+        if (lstat(path, &inode) == 0) {
+            if (S_ISDIR(inode.st_mode)) {
                     if ((strcmp(dentry->d_name, ".") != 0) && (strcmp(dentry->d_name, "..") != 0 ) ) {
                        search(path,settings);
                     }
