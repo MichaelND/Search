@@ -32,7 +32,6 @@ bool        filter(const char *path, const Settings *settings) {
     if (settings->newer != 0 && settings->newer < get_mtime(path)) return true;
     if (settings->uid != -1 && settings->uid != inode.st_uid) return true;
     if (settings->gid != -1 && settings->gid != inode.st_gid) return true;
-
     return false;
 }
 
