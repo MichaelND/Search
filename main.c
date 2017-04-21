@@ -34,22 +34,24 @@ void	    usage(const char *program_name, int status) {
     exit(status);
 }
 
+Settings settings = {
+    .access = 0,
+    .uid = -1,
+    .gid = -1,
+    .print = 1,
+};
+
 /* Main Execution */
 
 int	    main(int argc, char *argv[]) {
     /* Defining Variables */
     //default values for settings
-    Settings settings = {
-        .access = 0,
-        .uid = -1,
-        .gid = -1,
-    };
     
     PROGRAM_NAME = argv[0];
     PATH = argv[1];
-    int argrind = 1;
-    while (argrind < argc && strlen(argv[argrind]) > 1 && argv[argrind][0] == '-') {
-        char * arg = argv[argrind++];
+    int argind = 2;
+    while (argind < argc && strlen(argv[argind]) > 1 && argv[argind][0] == '-') {
+        char * arg = argv[argind++];
 
         if (arg[1] == 'h')
             usage(PROGRAM_NAME, 0);
@@ -60,7 +62,7 @@ int	    main(int argc, char *argv[]) {
         else if (streq(arg, "-writable")) 
             settings.access |= W_OK;
         else if (streq(arg, "-type")) {
-            arg = argv[argrind++];
+            arg = argv[argind++];
             if (streq(arg, "f"))
                 settings.type |= S_IFREG;
             else if (streq(arg, "d"))
@@ -69,31 +71,27 @@ int	    main(int argc, char *argv[]) {
         else if (streq(arg, "-empty")) //unsure
             settings.empty = 1;
         else if (streq(arg, "-name")) 
-            settings.name = argv[argrind++];
+            settings.name = argv[argind++];
         else if (streq(arg, "-path"))
-            settings.path = argv[argrind++];
+            settings.path = argv[argind++];
         else if (streq(arg, "-perm"))
-            settings.perm = atoi(argv[argrind++]);
+            settings.perm = atoi(argv[argind++]);
         else if (streq(arg, "-newer"))
-            settings.newer = get_mtime(argv[argrind++]);
+            settings.newer = get_mtime(argv[argind++]);
         else if (streq(arg, "-uid")) 
-            settings.uid = atoi(argv[argrind++]);
+            settings.uid = atoi(argv[argind++]);
         else if (streq(arg, "-gid"))
-            settings.gid = atoi(argv[argrind++]);
+            settings.gid = atoi(argv[argind++]);
         else if (streq(arg, "-print"))
             settings.print = true;
         else if (streq(arg, "-exec")) {
             while (!streq(arg, ";")) {
-                settings.exec_argv[settings.exec_argc++] = argv[argrind++];
+                settings.exec_argv[settings.exec_argc++] = argv[argind++];
             }
-            // char *v[] = {};
-            // for (int i = 0; i < settings.exec_argc; i++) {
-            //     v[i] = argv[(argrind-settings.exec_argc)+i];
-            // }
             settings.exec_argc++;
         }
-        else
-            usage(PROGRAM_NAME, 1);
+        else 
+            settings.print = 0;
     }
 
     if (PATH != NULL)

@@ -26,13 +26,13 @@ int	    execute(const char *path, const Settings *settings) {
 		if (pid < 0) {
 			return EXIT_FAILURE;
 		}
-		else if (pid == 0) {
+		if (pid == 0) {
 			char * v[settings->exec_argc + 1]; //last element equal to null if path matches path in cur
 			for (int i = 0; i <= settings->exec_argc; i++) {
-				if (strcmp(settings->exec_argv[i], "{}" == 0))
-					settings->exec_argv[i] = path;
-
-				v[i] = settings->exec_argv[i];
+				if (strcmp(settings->exec_argv[i], "{}") == 0)
+					v[i] = path;
+				else
+					v[i] = settings->exec_argv[i];
 			}
 
 			v[settings->exec_argc + 1] = NULL;

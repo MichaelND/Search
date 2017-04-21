@@ -16,7 +16,7 @@ the user inputs. This is accomplished through multiple if/else statements.
 
 2. To walk the directory tree, we mimicked the programs we've created in 
 class. If the directory can be opened via opendir, the program then uses 
-readdir to iterate over the contents of the folder to check if 
+readdir to iterate over the contents of the folder to check if it is a file or a directory. If it is a directory, then search is called recurisvely on this directory. 
 
 Contributions
 -------------
