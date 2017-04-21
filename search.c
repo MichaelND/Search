@@ -24,11 +24,14 @@ int	    search(const char *root, const Settings *settings) {
     }
     while ((dentry = readdir(parent_dir)) != NULL) { //read
         sprintf(path, "%s/%s", root, dentry->d_name);
-        if (filter(path, settings) == false) {
+        if (filter(path, settings) == false && (strcmp(dentry->d_name,".") != 0) && (strcmp(dentry->d_name,"..") != 0))  {
             execute(path, settings);
         }
         if (is_directory_empty(path) && (strcmp(dentry->d_name,".") != 0) && (strcmp(dentry->d_name, "..") != 0)) {
             search(path, settings);
+            if (is_directory_empty(path)) {
+                    search(path,settings);
+            }
         }
     }
     closedir(parent_dir); //close
