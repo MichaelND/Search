@@ -38,7 +38,6 @@ Settings settings = {
     .access = 0,
     .uid = -1,
     .gid = -1,
-    .print = 1,
 };
 
 /* Main Execution */
@@ -55,33 +54,54 @@ int	    main(int argc, char *argv[]) {
 
         if (arg[1] == 'h')
             usage(PROGRAM_NAME, 0);
-        else if (streq(arg, "-executable"))
+        else if (streq(arg, "-executable")) {
+            settings.print = true;
             settings.access |= X_OK;
-        else if (streq(arg, "-readable"))
+        }
+        else if (streq(arg, "-readable")) {
+            settings.print = true;
             settings.access |= R_OK;
-        else if (streq(arg, "-writable")) 
+        }
+        else if (streq(arg, "-writable")) {
+            settings.print = true;
             settings.access |= W_OK;
+        }
         else if (streq(arg, "-type")) {
+            settings.print = true;
             arg = argv[argind++];
             if (streq(arg, "f"))
                 settings.type |= S_IFREG;
             else if (streq(arg, "d"))
                 settings.type |= S_IFDIR;
         }
-        else if (streq(arg, "-empty")) //unsure
+        else if (streq(arg, "-empty")) { //unsure
+            settings.print = true;
             settings.empty = 1;
-        else if (streq(arg, "-name")) 
+        }
+        else if (streq(arg, "-name")) {
+            settings.print = true;
             settings.name = argv[argind++];
-        else if (streq(arg, "-path"))
+        }
+        else if (streq(arg, "-path")) {
+            settings.print = true;
             settings.path = argv[argind++];
-        else if (streq(arg, "-perm"))
+        }
+        else if (streq(arg, "-perm")) {
+            settings.print = true;
             settings.perm = atoi(argv[argind++]);
-        else if (streq(arg, "-newer"))
+        }
+        else if (streq(arg, "-newer")) {
+            settings.print = true;
             settings.newer = get_mtime(argv[argind++]);
-        else if (streq(arg, "-uid")) 
+        }
+        else if (streq(arg, "-uid")) {
+            settings.print = true;
             settings.uid = atoi(argv[argind++]);
-        else if (streq(arg, "-gid"))
+        } 
+        else if (streq(arg, "-gid")) {
+            settings.print = true;
             settings.gid = atoi(argv[argind++]);
+        }
         else if (streq(arg, "-print"))
             settings.print = true;
         else if (streq(arg, "-exec")) {
@@ -90,8 +110,6 @@ int	    main(int argc, char *argv[]) {
             }
             settings.exec_argc++;
         }
-        else 
-            settings.print = 0;
     }
 
     if (PATH != NULL)
