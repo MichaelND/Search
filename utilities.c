@@ -43,12 +43,10 @@ bool        is_directory_empty(const char *path) {
 time_t      get_mtime(const char *path) {
     struct stat sb;
     time_t failure = 0; 
-    DIR *dir = opendir(path);
-    if (dir == NULL) {
-        fprintf(stderr, "Unable to open: %s\n", strerror(errno));
+    if (lstat(path, &sb) < 0) {
+        perror(path);
         return failure;
     }
-    if (lstat(path, &sb) < 0) return failure;
     return sb.st_mtime; 
 }
 /* vim: set sts=4 sw=4 ts=8 expandtab ft=c: */

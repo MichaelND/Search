@@ -76,8 +76,10 @@ int	    main(int argc, char *argv[]) {
             settings.path = argv[argind++];
         else if (streq(arg, "-perm"))
             settings.perm = atoi(argv[argind++]);
-        else if (streq(arg, "-newer"))
+        else if (streq(arg, "-newer")){
             settings.newer = get_mtime(argv[argind++]);
+            fprintf("%zu\n", get_mtime(argv[argind]));
+        }
         else if (streq(arg, "-uid")) 
             settings.uid = atoi(argv[argind++]);
         else if (streq(arg, "-gid"))
