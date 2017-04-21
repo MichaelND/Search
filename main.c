@@ -67,15 +67,15 @@ int	    main(int argc, char *argv[]) {
                 settings.type |= S_IFDIR;
         }
         else if (streq(arg, "-empty")) //unsure
-            settings.empty |= 1;
+            settings.empty = 1;
         else if (streq(arg, "-name")) 
-            settings.name = &argv[argrind++][0];
+            settings.name = argv[argrind++];
         else if (streq(arg, "-path"))
-            settings.path = &argv[argrind++][0];
+            settings.path = argv[argrind++];
         else if (streq(arg, "-perm"))
             settings.perm = atoi(argv[argrind++]);
         else if (streq(arg, "-newer"))
-            settings.newer = atoi(argv[argrind++]);
+            settings.newer = get_mtime(argv[argrind++]);
         else if (streq(arg, "-uid")) 
             settings.uid = atoi(argv[argrind++]);
         else if (streq(arg, "-gid"))
@@ -83,20 +83,23 @@ int	    main(int argc, char *argv[]) {
         else if (streq(arg, "-print"))
             settings.print = true;
         else if (streq(arg, "-exec")) {
-            while (arg != NULL) {
-                settings.exec_argc++;
-                arg = argv[argrind++];
+            while (!streq(arg, ";")) {
+                settings.exec_argv[settings.exec_argc++] = argv[argrind++];
             }
-            char *v[] = {};
-            for (int i = 0; i < settings.exec_argc; i++) {
-                v[i] = argv[(argrind-settings.exec_argc)+i];
-            }
-            settings.exec_argv = v;
+            // char *v[] = {};
+            // for (int i = 0; i < settings.exec_argc; i++) {
+            //     v[i] = argv[(argrind-settings.exec_argc)+i];
+            // }
+            settings.exec_argc++;
         }
         else
             usage(PROGRAM_NAME, 1);
-
     }
+
+    if (PATH != NULL)
+        search(PATH, &settings);
+    else
+        usage(PROGRAM_NAME, 1);
     
     return EXIT_SUCCESS;
 }

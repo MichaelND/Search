@@ -25,7 +25,8 @@ int	    search(const char *root, const Settings *settings) {
     }
     while ((dentry = readdir(parent_dir)) != NULL) { //read
         stat(dentry->d_name, &s); // gets inode info
-        sprintf(path, root, "/", dentry->name);
+        sprintf(path, root, "/", dentry->d_name);
+        printf("%s\n",path);
         if (filter(path, settings) == false) {
             execute(path, settings);
         }
