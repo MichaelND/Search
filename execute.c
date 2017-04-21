@@ -19,7 +19,7 @@
  */
 int	    execute(const char *path, const Settings *settings) {
 	if (settings->print == true)
-		printf(path);
+		printf("%s\n", path);
 
 	if (settings->exec_argc != 0) {
 		pid_t pid = fork();
@@ -27,9 +27,16 @@ int	    execute(const char *path, const Settings *settings) {
 			return EXIT_FAILURE;
 		}
 		else if (pid == 0) {
-			char *v[sizeof(settings->exec_argv)] = {}; //last element equal to null if path matches path in cur
-			strncpy(&settings->exec_argv, v, sizeof(settings->exec_argv) + 1);
-			v[sizeof(settings->exec_argv) + 1] = NULL;
+			char * v[settings->exec_argc + 1]; //last element equal to null if path matches path in cur
+			for (int i = 0; i <= settings->exec_argc; i++) {
+				if (strcmp(settings->exec_argv[i], "{}" == 0))
+					settings->exec_argv[i] = path;
+
+				v[i] = settings->exec_argv[i];
+			}
+
+			v[settings->exec_argc + 1] = NULL;
+			
 			if (execvp(v[0], v) < 0) {
 				_exit(EXIT_FAILURE);
 			}
