@@ -16,23 +16,22 @@
  * @return  Whether or not a directory is empty.
  */
 bool        is_directory_empty(const char *path) {
-    struct dirent *file; 
     DIR *dir = opendir(path);
     int numFiles = 0;
-    bool found = false; 
+    bool empty = false; 
     if (dir == NULL ) {
         fprintf(stderr, "Unable to open: %s\n", strerror(errno));
-        return found;
+        return empty;
     }
-    while (( file = readdir(dir)) != NULL) {
+    while ((readdir(dir)) != NULL) {
         numFiles = numFiles + 1;
-        if (numFiles > 2) {
-            found = true;
+        if (numFiles > 2) { // . and ..
+            empty = true;
             break;
         }
     }
     closedir(dir);
-    return found;
+    return empty;
 }
 
 /**

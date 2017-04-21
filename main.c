@@ -68,18 +68,16 @@ int	    main(int argc, char *argv[]) {
             else if (streq(arg, "d"))
                 settings.type |= S_IFDIR;
         }
-        else if (streq(arg, "-empty")) //unsure
-            settings.empty = 1;
+        else if (streq(arg, "-empty"))
+            settings.empty = true;
         else if (streq(arg, "-name")) 
             settings.name = argv[argind++];
         else if (streq(arg, "-path"))
             settings.path = argv[argind++];
         else if (streq(arg, "-perm"))
             settings.perm = atoi(argv[argind++]);
-        else if (streq(arg, "-newer")){
+        else if (streq(arg, "-newer"))
             settings.newer = get_mtime(argv[argind++]);
-            fprintf("%zu\n", get_mtime(argv[argind]));
-        }
         else if (streq(arg, "-uid")) 
             settings.uid = atoi(argv[argind++]);
         else if (streq(arg, "-gid"))
