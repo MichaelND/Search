@@ -17,20 +17,18 @@
  */
 int	    search(const char *root, const Settings *settings) {	
     struct dirent * dentry;
-    struct stat s;
     DIR * parent_dir = opendir(root);
     char path[BUFSIZ];
     if (parent_dir == NULL) { //check if directory is openable
     	return EXIT_FAILURE;
     }
     while ((dentry = readdir(parent_dir)) != NULL) { //read
-        stat(dentry->d_name, &s); // gets inode info
         sprintf(path, root, "/", dentry->d_name);
         printf("%s\n",path);
         if (filter(path, settings) == false) {
             execute(path, settings);
         }
-        if (S_ISDIR(s.st_mode) && (dentry->d_name != ("." || ".."))) {
+        if ((opendir(dentry->d_name) != NULL)&& (dentry->d_name != ("." || ".."))) {
             search(path, settings);
         }
     }
