@@ -24,7 +24,7 @@ bool        filter(const char *path, const Settings *settings) {
     struct stat inode;
     if (lstat(path, &inode) != 0) return true;
     if (settings->access != 0 && access(path, settings->access) != 0) return true;
-    if (settings->type != 0 && inode.st_mode != settings->type) return true;
+    if (settings->type != 0 && !(inode.st_mode & settings->type)) return true;
     if (settings->empty != false && inode.st_size == 0) return true;
     if (settings->name != NULL && fnmatch(settings->name, basename(path), FNM_PATHNAME) != 0) return true;
     if (settings->path != NULL && fnmatch(settings->path, path, FNM_PATHNAME) != 0) return true;

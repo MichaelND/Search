@@ -31,10 +31,6 @@ int	    search(const char *root, const Settings *settings) {
 
         //if (dentry->d_type == DT_DIR) {
         if (strcmp(dentry->d_name, ".") != 0 && strcmp(dentry->d_name, "..") != 0) {
-            if (dentry->d_type == DT_DIR) { //() ) {
-                search(path,settings);
-            }
-            if (filter(path,settings) == false) {
             if (filter(path,settings) == false)
                 execute(path,settings);
             if (dentry->d_type == DT_DIR) 

@@ -20,10 +20,7 @@ bool        is_directory_empty(const char *path) {
     DIR *dir = opendir(path);
     int numFiles = 0;
     bool found = false; 
-    if (dir == NULL ) {
-        fprintf(stderr, "Unable to open: %s\n", strerror(errno));
-        return found;
-    }
+    if (dir == NULL ) return found;
     while (( file = readdir(dir)) != NULL) {
         numFiles = numFiles + 1;
         if (numFiles > 2) {
@@ -44,10 +41,7 @@ time_t      get_mtime(const char *path) {
     struct stat sb;
     time_t failure = 0; 
     DIR *dir = opendir(path);
-    if (dir == NULL) {
-        fprintf(stderr, "Unable to open: %s\n", strerror(errno));
-        return failure;
-    }
+    if (dir == NULL) return failure;
     if (lstat(path, &sb) < 0) return failure;
     return sb.st_mtime; 
 }

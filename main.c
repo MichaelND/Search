@@ -94,8 +94,12 @@ int	    main(int argc, char *argv[]) {
             settings.print = 0;
     }
 
-    if (PATH != NULL)
+    if (PATH != NULL) {
+       if (filter(PATH,&settings) == false) 
+            execute(PATH, &settings);
+
         search(PATH, &settings);
+    }
     else
         usage(PROGRAM_NAME, 1);
     
