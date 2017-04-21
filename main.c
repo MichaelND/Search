@@ -38,6 +38,7 @@ Settings settings = {
     .access = 0,
     .uid = -1,
     .gid = -1,
+    .print = 1,
 };
 
 /* Main Execution */
