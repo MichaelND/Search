@@ -15,12 +15,12 @@
  * @param   path        Path to directory.
  * @return  Whether or not a directory is empty.
  */
-bool        is_directory_empty(const char *path) {
+bool        is_directory_empty(const char *path) { 
     DIR *dir = opendir(path);
     int numFiles = 0;
     bool empty = false; 
     if (dir == NULL ) {
-        fprintf(stderr, "Unable to open: %s\n", strerror(errno));
+        fprintf(stderr, "Unable to open: %s\n", strerror(errno)); //uh oh
         return empty;
     }
     while ((readdir(dir)) != NULL) {
@@ -30,7 +30,7 @@ bool        is_directory_empty(const char *path) {
             break;
         }
         else
-            empty = true;
+            empty = true; 
     }
     closedir(dir);
     return empty;
