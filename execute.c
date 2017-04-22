@@ -27,7 +27,7 @@ int	    execute(const char *path, const Settings *settings) {
 			return EXIT_FAILURE;
 		}
 		if (pid == 0) {
-			char * v[settings->exec_argc + 1]; //last element equal to null if path matches path in cur
+			char * v[settings->exec_argc]; //last element equal to null if path matches path in cur
 			for (int i = 0; i <= settings->exec_argc; i++) {
 				if (strcmp(settings->exec_argv[i], "{}") == 0)
 					v[i] = path;
@@ -35,7 +35,7 @@ int	    execute(const char *path, const Settings *settings) {
 					v[i] = settings->exec_argv[i];
 			}
 
-			v[settings->exec_argc + 1] = NULL;
+			v[settings->exec_argc] = NULL;
 			
 			if (execvp(v[0], v) < 0) {
 				_exit(EXIT_FAILURE);
