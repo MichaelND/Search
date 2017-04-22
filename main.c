@@ -108,10 +108,10 @@ int	    main(int argc, char *argv[]) {
         else if (streq(arg, "-print"))
             settings.print = true;
         else if (streq(arg, "-exec")) {
-            while (!streq(arg, ";")) {
-                settings.exec_argv[settings.exec_argc++] = argv[argind++];
+            settings.exec_argv = &argv[argind];
+            while (!streq(argv[argind++], ";")) {
+                settings.exec_argc++;
             }
-            settings.exec_argc++;
         }
     }
 
@@ -121,8 +121,6 @@ int	    main(int argc, char *argv[]) {
 
         search(PATH, &settings);
     }
-    else
-        usage(PROGRAM_NAME, 1);
     
     return EXIT_SUCCESS;
 }
