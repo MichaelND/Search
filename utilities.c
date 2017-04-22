@@ -26,9 +26,11 @@ bool        is_directory_empty(const char *path) {
     while ((readdir(dir)) != NULL) {
         numFiles = numFiles + 1;
         if (numFiles > 2) { // . and ..
-            empty = true;
+            empty = false;
             break;
         }
+        else
+            empty = true;
     }
     closedir(dir);
     return empty;

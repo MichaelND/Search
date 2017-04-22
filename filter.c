@@ -28,7 +28,7 @@ bool        filter(const char *path, const Settings *settings) {
     if (settings->empty == true && !(is_directory_empty(path) || inode.st_size == 0)) return true;
     if (settings->name != NULL && (fnmatch(settings->name, basename(path), FNM_PATHNAME) != 0)) return true;
     if (settings->path != NULL && (fnmatch(settings->path, path, 0) != 0)) return true;
-    if (settings->perm != 0 && (settings->perm != (inode.st_mode & (S_IRWXU | S_IRWXG | S_IRWXO)))) return true;
+    if (settings->perm != 0 && !((inode.st_mode & (S_IRWXU | S_IRWXG | S_IRWXO)) == settings->perm)) return true;
     if (settings->newer != 0 && !(settings->newer < get_mtime(path))) return true;
     if (settings->uid != -1 && settings->uid != inode.st_uid) return true;
     if (settings->gid != -1 && settings->gid != inode.st_gid) return true;
