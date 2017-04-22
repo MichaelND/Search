@@ -18,7 +18,7 @@
 bool        is_directory_empty(const char *path) {
     DIR *dir = opendir(path);
     int numFiles = 0;
-    bool empty = false; 
+    bool empty = true; 
     if (dir == NULL ) {
         fprintf(stderr, "Unable to open: %s\n", strerror(errno));
         return empty;
@@ -26,7 +26,7 @@ bool        is_directory_empty(const char *path) {
     while ((readdir(dir)) != NULL) {
         numFiles = numFiles + 1;
         if (numFiles > 2) { // . and ..
-            empty = true;
+            empty = false;
             break;
         }
     }
