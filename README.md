@@ -30,10 +30,9 @@ according to the directions.
 Script Questions
 ----------------
 
-1.
+1. Our search program has more calls than the find program (about 1000). For the type of calls, our search uses much less variety and doesn't have calls such as set_tid_address or set_robust_list and many more compared with find. Find uses a much more complex variety of system calls than search in other words.
 
-2.
-
+2. Our trace for the find program outputted a lot of permission denied files when trying to do the system calls. Find uses fewer system calls and a wider range of system calls than search mainly because we assume that it is made to be more efficient and doesn't involved forking programs. One surprising thing as well was that search uses around 3600 calls of lstat when find uses newfstatat. Checking the manual shows that newfstatat is an underlying system call which is probably built into the system. lstat returns information about the link itself when fstatat dereferences symbolic links like stat. Find also uses this system call fchdir which changes working directories which is different than search which simply recursively goes through directories if they aren't empty. While search does things through symbolic links using lstat, find does things using fstatat. 
 
 
 Contributions
