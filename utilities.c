@@ -29,6 +29,8 @@ bool        is_directory_empty(const char *path) {
             empty = false;
             break;
         }
+        else
+            empty = true;
     }
     closedir(dir);
     return empty;

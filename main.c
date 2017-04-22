@@ -89,7 +89,9 @@ int	    main(int argc, char *argv[]) {
         }
         else if (streq(arg, "-perm")) {
             settings.print = true;
-            settings.perm = atoi(argv[argind++]);
+            char * ptr;
+            arg = argv[argind++];
+            settings.perm = strtol(arg, &ptr, 8);
         }
         else if (streq(arg, "-newer")) {
             settings.print = true;

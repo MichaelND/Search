@@ -26,27 +26,13 @@ int	    search(const char *root, const Settings *settings) {
     }
     while ((dentry = readdir(parent_dir)) != NULL) { //read
         sprintf(path, "%s/%s", root, dentry->d_name);
-        // if (lstat(path, &inode) != 0) {
-            // if (S_ISDIR(inode.st_mode)) {
-
-        //if (dentry->d_type == DT_DIR) {
+        
         if (strcmp(dentry->d_name, ".") != 0 && strcmp(dentry->d_name, "..") != 0) {
             if (filter(path,settings) == false)
                 execute(path,settings);
             if (dentry->d_type == DT_DIR) 
                 search(path,settings);
         }
-        /*
-        if ((strcmp(dentry->d_name,".") != 0) && (strcmp(dentry->d_name,"..") != 0) && (filter(path,settings) == false))  {
-            execute(path, settings);
-        }
-        if (is_directory_empty(path) && (strcmp(dentry->d_name,".") != 0) && (strcmp(dentry->d_name, "..") != 0)) {
-            search(path, settings);
-            if (is_directory_empty(path)) {
-                    search(path,settings);
-            }
-        }
-        */
     }
     closedir(parent_dir); //close
     return EXIT_SUCCESS;
