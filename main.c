@@ -113,8 +113,6 @@ int	    main(int argc, char *argv[]) {
 
         search(PATH, &settings);
     }
-    else
-        usage(PROGRAM_NAME, 1);
     
     return EXIT_SUCCESS;
 }
