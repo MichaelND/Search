@@ -18,7 +18,7 @@
 bool        is_directory_empty(const char *path) { 
     DIR *dir = opendir(path);
     int numFiles = 0;
-    bool empty = true; 
+    bool empty = false; 
     if (dir == NULL ) {
         fprintf(stderr, "Unable to open: %s\n", strerror(errno)); //uh oh
         return empty;
