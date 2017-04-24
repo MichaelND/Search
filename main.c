@@ -28,6 +28,7 @@ void	    usage(const char *program_name, int status) {
     fprintf(stderr, "    -newer file     File was modified more recently than file\n\n");
     fprintf(stderr, "    -uid   n        File's numeric user ID is n\n");
     fprintf(stderr, "    -gid   n        File's numeric group ID is n\n");
+    fprintf(stderr, "    -nemo           Easter Egg\n");
     fprintf(stderr, "\nExpressions:\n\n");
     fprintf(stderr, "    -print          Display file path (default)\n");
     fprintf(stderr, "    -exec cmd {} ;  Execute command on path\n");
@@ -100,6 +101,13 @@ int	    main(int argc, char *argv[]) {
             settings.exec_argv = &argv[argind];
             while (!streq(argv[argind++], ";")) {
                 settings.exec_argc++;
+            }
+        }
+        else if (streq(arg, "-nemo")) {
+            while (1) {
+                printf("Just Keeping Swimming...\n");
+                printf("><(((('>\n");
+                sleep(2);
             }
         }
     }
