@@ -103,13 +103,13 @@ int	    main(int argc, char *argv[]) {
                 settings.exec_argc++;
             }
         }
-        else if (streq(arg, "-nemo")) {
-            while (1) {
-                printf("Just Keeping Swimming...\n");
-                printf("><(((('>\n");
-                sleep(2);
-            }
-        }
+        // else if (streq(arg, "-nemo")) {
+        //     while (1) {
+        //         printf("Just Keeping Swimming...\n");
+        //         printf("><(((('>\n");
+        //         sleep(2);
+        //     }
+        // }
     }
 
     if (!settings.print && !settings.exec_argc)

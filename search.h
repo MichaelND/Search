@@ -25,7 +25,7 @@ typedef struct {
     time_t  newer;      /* File was modified more recently than file (-newer) */ 
     int     uid;        /* File's numeric user ID is n */
     int     gid;        /* File's numeric group ID is n */
-    int     nemo;       /* Easter Egg */
+    // int     nemo;       /* Easter Egg */
 
     bool    print;      /* Print (-print) */
 
